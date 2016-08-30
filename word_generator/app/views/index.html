@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Word Generator</title>
+</head>
+<body>
+	<p>Random Word (attempt #{{session['count']}})</p>
+	<h1>{{word}}</h1>
+	<form action="/process" method='POST'>
+		<input type="submit" name="Submit" value="Generate">
+	</form>
+</body>
+</html>
