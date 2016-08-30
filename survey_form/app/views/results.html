@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>Result</title>
+<style type="text/css">
+	
+</style>	
+</head>
+
+<body>
+	<div>Thanks for submiting this form. You have submitted this form {{session['times']}} times now!</div>
+	<thead>Submitted Info</thead>
+	<table>
+		<tr>Name:
+			<td>{{ name }}</td>
+		</tr>
+		<tr>Dojo Location:
+			<td>{{ location }}</td>
+		</tr>
+		<tr>Favorite Language:
+			<td>{{ language }}</td>
+		</tr>
+		<tr>Comment:
+			<td>{{ comment }}</td>
+		</tr>
+	</table>
+<form action="/back" method="get">
+	<input value="Go Back" type="submit" name="submit">
+</html>
