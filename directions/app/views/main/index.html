@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Directions</title>
+</head>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>
+	
+	$(document).ready(function(){
+		$('#direction').submit(function(){
+			$.post($(this).attr('action'), $(this).serialize(), function(data){
+				console.log(data);
+				var steps = data.routes[0].legs[0].steps;
+				var start = data.routes[0].legs[0].start_address;
+				var end = data.routes[0].legs[0].end_address;
+				console.log(steps);
+				$('#results').append('<h1>Directions from '+start+' to '+end+':</h1>')
+				for(var i = 0; i < steps.length; i++){
+					$('#results').append('<h3>'+(i+1)+': '+ steps[i].html_instructions + '</h3>')
+				}
+			}, 'json')
+			
+			return false
+		});
+		function initMap(position, name) {
+        	var myLatLng = position;
+
+        	var map = new google.maps.Map(document.getElementById('map'), {
+          	zoom: 4,
+          	center: myLatLng
+        	});
+
+        	var marker = new google.maps.Marker({
+          	position: myLatLng,
+          	map: map,
+          	title: name
+        	});
+      	}
+		$('#place_search').submit(function(){
+			$.post($(this).attr('action'), $(this).serialize(), function(data){
+				console.log(data);
+ 		
+				for(var i = 0; i < data.results.length; i++){
+					var pos = { lat: data.results[i].geometry.location.lat, lng: data.results[i].geometry.location.lng}
+					var name = data.results[i].name
+					$('#list').append('<h1>'+name+'</h1>')
+					$('#list').append('<p>'+ data.results[i].vicinity +' </p>')
+
+					if (data.results[i].opening_hours.open_now){
+						$('#list').append('<p>Open Now</p>')
+					}
+					else{
+						$('#list').append('<p>Closed</p>')
+					}
+					if (data.results[i].rating){
+						$('#list').append('<p>'+data.results[i].rating+'</p><hr>')
+					}
+					else{
+						$('#list').append('<p>No Rating</p><hr>')
+					}
+				}
+			}, 'json');
+		return false
+	});
+});
+</script>
+<body>
+	<form action="/main/get_directions" method='post' id='direction'>
+		<input type="text" name="origin">
+		<input type="text" name="destination">
+		<input type="submit" name="Submit" value="Get Directions">
+	</form>
+	<div id ='results'>
+	</div>
+	<form action="/main/place_search" method='post' id = 'place_search'>
+		<input type="text" name="location">
+		<input type="text" name="what">
+		<input type="submit" name="Submit" value="Get Directions">
+	</form>
+	<div id ='list'>
+	</div>
+</body>
+</html>
