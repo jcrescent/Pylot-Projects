@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Courses</title>
+<style type="text/css">
+th, td{
+	border-left: solid black 3px;
+	padding: auto;
+	margin:	0px;
+}	
+</style>
+</head>
+<body>
+	<h2>Add a new course</h2>
+	<form action="/courses/add", method="POST">
+		<label>Name:
+			<input type="input" name="name">
+		</label>
+		<label>Description:
+			<textarea name="description"></textarea>
+		</label>
+		<input type="submit" name="Submt" value="Add">
+	</form>
+<div>
+	<table>
+		<thead>
+			<th>Course Name</th>
+			<th>Description</th>
+			<th>Date Added</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+			{% for course in course_data %}
+				<tr>
+					<td>{{course['title']}}</td>
+					<td>{{course['description']}}</td>
+					<td>{{course['date_added']}}</td>
+					<td><a href="/remove/{{course['id']}}">remove</a></td>
+				</tr>
+			{% endfor %}
+		</tbody>	
+	</table>
+</div>
+</body>
+</html>
