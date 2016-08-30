@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Products</title>
+</head>
+<body>
+	<h1>Products</h1>
+	<table>
+		<thead>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+		{% for product in all_products %}
+			<tr>
+				<td>{{product['name']}}</td>
+				<td>{{product['description']}}</td>
+				<td>${{product['price']}}</td>
+				<td><a href="/show/{{product['id']}}">Show</a> | <a href="/edit/{{product['id']}}">Edit</a> | <form action="/delete/{{product['id']}}" method="post"><input type="submit" name="Submit" value="Remove"></form></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<a href="/new">Add a new product</a>
+	</table>
+</body>
+</html>
