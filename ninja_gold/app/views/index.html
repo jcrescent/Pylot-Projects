@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<body>
+	<h3>Your Gold: {{ session['gold'] }}</h3>
+	<div id='content'>
+		<div class="places">
+			<h2>Farm</h2>
+			<p>(earns 10-20 gold)</p>
+			<form action="/process_gold" method="post">
+				<input type="submit" name="place" value="Get Gold" >
+			</form>
+		</div>
+		<div class="places">
+			<h2>Cave</h2>
+			<p>(earns 5-10 gold)</p>
+			<form action="/process_gold" method="post">
+				<input type="submit" name="place" value="Get Gold">
+			</form>
+		</div>
+		<div class="places">
+			<h2>House</h2>
+			<p>(earns 2-5 gold)</p>
+			<form action="/process_gold" method="post">
+				<input type="submit" name="place" value="Get Gold">
+			</form>
+		</div>
+		<div class="places">
+			<h2>Casino</h2>
+			<p>(earns/takes 0-50 gold)</p>
+			<form action="/process_gold" method="post">
+				<input type="submit" name="place" value="Get Gold">
+			</form>
+		</div>
+	</div>
+	<div id='bottom'>
+		<h3>Activities:</h3>
+		<div id='log'>
+	    	{{ message | safe }}
+	  	</div>
+	</div>
+</body>
+</html>
