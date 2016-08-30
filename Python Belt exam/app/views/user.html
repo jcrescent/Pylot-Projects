@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User</title>
+</head>
+<body>
+	<a href="/dashboard">Dashboard</a> | <a href="/logout">Logout</a>
+	<h2>Posts by {{user_quotes['alias']}}</h2>
+	<h2>Total:</h2>
+
+	{% for quote in user_quotes %}
+		<p>{{user_quotes['author']}}: {{user_quotes['quote']}}</p>		
+	{% endfor %}	
+
+</body>
+</html>

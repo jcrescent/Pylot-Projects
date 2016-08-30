@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quotes</title>
+</head>
+<body>
+	<h1>Welcome, {{session['alias']}}!</h1>
+	<a href="/logout">Logout</a>
+	<h2>Quotable Quotes</h2>
+	<div>
+		{% for quote in quotes %}
+			<div>
+				<p>{{quote['author']}}: {{quote['quote']}}</p>
+				<p>Posted by <a href="/users/{{quote['id_user']}}">{{quote['alias']}}</a></p>
+				<form action="/add_to_fav/{{quote['id']}}" method="post">
+					<input type="submit" name="submit" value="Add to My List">
+				</form>
+			</div>
+		{% endfor %}
+	</div>
+	<div>
+		<h2>Your Favorites</h2>
+		<div>
+			{% for favorite in favorites %}
+				<div>
+					<p>{{quote['author']}}: {{quote['quote']}}</p>
+					<p>Posted by <a href="/users/{{quote['id_user']}}">{{quote['alias']}}</a></p>
+					<form action="/remove_from_fav/{{quote['id']}}" method="post">
+						<input type="submit" name="submit" value="Remove From My List">
+					</form>
+				</div>
+			{% endfor %}	
+		</div>		
+	</div>
+	<div>
+		<h2>Contribute a Quote:</h2>
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+						<p>{{ message }}</p>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}	
+		<form action="/add_quote" method ="post">
+		<label>Quoted By:			
+			<input type="text" name="author">
+		</label>
+		<label>Quote:
+			<textarea name ="quote"></textarea>
+		</label>
+		<input type="submit" name="submit">
+		</form>
+	</div>
+</body>
+</html>
