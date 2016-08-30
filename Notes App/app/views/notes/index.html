@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Notes</title>
+</head>
+<script type="text/javascript" src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#new_note').on('submit', function(){
+			$.post('/notes/add_note', $(this).serialize(), function(res){
+				$('#note_list').html(res)
+			});
+		return false
+		});
+	});	
+
+	$(document).on('focusout','.notes', function(){
+			var note_id = $(this).attr('id')
+			$.post('/notes/edit/'+note_id+'', $(this).serialize(), function(res){
+				$('#note_list').html(res)
+			});
+		return false
+		});
+
+
+
+	$(document).on('submit','.delete',  function(){
+			var note_id = $(this).attr('id');
+			$.post('/notes/delete/'+note_id+'', $(this).serialize(), function(res){
+				$('#note_list').html(res)
+			});
+		return false	
+		});
+	
+</script>
+<body>
+	<h2>Notes</h2>
+	<hr>
+	<div id ='note_list'>
+	{% for note in notes %}
+		<h2>{{ note['title'] }}</h2>
+		<form action="/notes/delete/{{ note['id'] }}" method='post' class = 'delete' id="{{note['id']}}">
+			<input type="submit" name="Submit" value="delete">
+		</form>
+		<form action="/notes/edit/{{ note['id'] }}" method="post"  id="{{note['id']}}">
+			<textarea name="note" class="notes" id="{{note['id']}}">{{ note['note'] }}</textarea>
+		</form>
+	{% endfor %}
+	</div>	
+	<form action='/notes/add_note' method="post" id="new_note">
+		<input type="text" name="title">
+		<input type="submit" name="addnew">
+	</form>
+</body>
+</html>
