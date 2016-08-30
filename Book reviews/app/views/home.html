@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Books Home</title>
+</head>
+<body>
+	<h1>Welcome {{ session['user_first'] }}</h1>
+	<a href="/add_book_page">Add Book and Review</a>
+	<a href="/logout">Logout</a>
+	<h2>Recent Book reviews:</h2>
+	{% for review in recent_reviews %}
+		<h2><a href="/books/{{review['books_id']}}">{{review['title']}}</a></h2>
+		<p>Rating: {{ review['rating'] }}</p>
+		<p>{{ review{name }} says: {{ review }}</p>
+		<p>Posted on {{ created_at }}</p>
+	{% endfor %}
+
+<div>
+	<h2>Other Books with Reviews:</h2>
+	<div>
+	{% for book in all_books %}
+		<a href="/books/{{book['id']}}">{{book['title']}}</a>
+	{% endfor %}	
+	</div>
+</div>
+</body>
+</html>

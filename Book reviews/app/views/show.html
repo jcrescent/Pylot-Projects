@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Review</title>
+</head>
+<body>
+<a href="/books"></a>
+	<div>
+	<h1>{{ title }}</h1>
+	<p>Author: {{ author }}</p>
+	</div>
+	<div>
+		<h2>Reviews</h2>
+		{% for review in reviews %}
+			<hr>
+			<p>Rating: {{ review['rating'] }}</p>
+			<p><a href="/users/{{review['user_id']}}"></a> says: {{review['review']}}</p>
+			<p>Posted on {{review['created_at']}}</p>
+			{% if review['user_id'] == session['id'] %}
+				<p><a href="/delete">Delete this Review</a></p>
+			{% endif %}
+		{% endfor %}
+	</div>	
+</body>
+</html>
