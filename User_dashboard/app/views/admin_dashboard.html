@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+</head>
+<body>
+	<h2>Manage Users</h2>
+	<form action="/new"><input type="submit" name="Submit" value="Add new"></form>
+	<table>
+		<thead>
+			<th>Name</th>
+			<th>email</th>
+			<th>Created</th>
+			<th>Level</th>
+		</thead>
+		<tbody>
+		{% for user in all_users %}
+			<tr>
+				<td><a href="/wall/{{user['id']}}">{{user['first_name']}} {{user['last_name']}}</a></td>
+				<td><a href="/wall/{{user['id']}}">{{user['email']}}</td>
+				<td><a href="/wall/{{user['id']}}">{{user['created_at']}}</td>
+				<td><a href="/wall/{{user['id']}}">{{user['level']}}</td>
+				<td><a href="/show/{{user['id']}}">edit</a> | <form action="/delete/{{user['id']}}" method="post"><input type="submit" name="Submit" value="Remove"></form></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</body>
+</body>
+</html>

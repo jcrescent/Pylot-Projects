@@ -1,0 +1,99 @@
+<html>
+<head>
+	<title>The Wall</title>
+<style type="text/css">
+	body{
+		width: 970px;
+		background-color: #eee;
+	}
+	#banner{
+		display: block;
+		border-bottom: 3px solid gray;
+	}
+	#banner h3{
+		margin-left: 40%;	
+	}	
+	#post{
+		width:75%;
+		margin: auto;
+	}
+	#messages{
+		width:75%;
+		margin: auto;
+	}
+	.welcome{
+		display: inline-block;
+	}
+	#messagebox{
+		width: 90%;
+		height: 80px;
+	}
+	#comments{
+		padding-left: 50px;
+		width:75%;
+		margin: auto;
+	}
+	#create_comment{
+		padding-left: 70px;
+		width: 75%;
+		margin: auto;
+	}
+	#commentbox{
+		width: 90%;
+		height: 40px;
+		margin: auto;
+	}
+</style>	
+</head>
+<body>
+<div> 
+	<h1>{{user_info['first_name']}} {{user_info['last_name']}}</h1>
+	<table>
+		<tr>
+			<td>Registered_at:</td>
+			<td>{{user_info['created_at']}}</td>
+		</tr>
+		<tr>
+			<td>User ID:</td>
+			<td>#{{user_info['id']}}</td>
+		</tr>
+		<tr>
+			<td>Email address:</td>
+			<td>{{user_info['email']}}</td>
+		</tr>
+		<tr>
+			<td>Description:</td>
+			<td>{{user_info['description']}}</td>
+		</tr>
+	</table>
+	
+</div>
+<div id='post'>
+	<form action="/post_message/{{session['user_id']}}" method="post">
+		<h2>Post a message for {{user_info['first_name']</h2>	
+		<textarea name='message' id='messagebox'></textarea>
+		<input type="submit" name="Submit" value="Post a message">
+	</form>
+	<hr>
+</div>
+<div id='messages'>
+	{% for message in message_data %}
+		<h3>{{message['first_name']}} {{message['last_name']}} {{message['created_at']}}</h3>
+		<p>{{message['message']}} </p>
+		<div id='comments'>
+			{% for comment in comment_data %}
+				{% if comment['messages_id'] == message['id'] %}
+				<hr>
+				<h3>{{comment['first_name']}} {{comment['last_name']}} {{comment['created_at']}}</h3>
+				<p>{{comment['comment']}}</p>
+				{% endif %}	
+			{% endfor %}	
+		</div>
+	<form action="/post_comment/{{message['id']}}/session['id']" method="post" id='create_comment'>
+		<textarea name='comment' id= 'commentbox'></textarea>
+		<input type="submit" name="Submit" value="Comment">
+	</form>
+	{% endfor %}
+</div>
+</body>
+</html>
